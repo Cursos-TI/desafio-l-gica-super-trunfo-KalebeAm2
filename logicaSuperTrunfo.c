@@ -15,78 +15,81 @@ int main() {
     float pib2 = 17.7;
     int pontos2 = 100;
 
-    int opcao;
+    int escolha1, escolha2;
+    int vitoria1 = 0;
+    int vitoria2 = 0;
 
-    printf("=== SUPER TRUNFO - PAÍSES ===\n");
-    printf("Escolha o atributo para comparar:\n");
+    // Menu interativo
+    printf("=== SUPER TRUNFO - PAÍSES (Nível Mestre) ===\n");
+    printf("Atributos disponíveis:\n");
     printf("1 - População\n");
     printf("2 - Área Territorial\n");
     printf("3 - PIB\n");
     printf("4 - Pontos Turísticos\n");
-    printf("Digite sua escolha: ");
-    scanf("%d", &opcao);
 
-    printf("\n=== Resultado da Comparação ===\n");
+    printf("\nEscolha o 1º atributo para comparar: ");
+    scanf("%d", &escolha1);
 
-    switch(opcao) {
+    printf("Escolha o 2º atributo para comparar: ");
+    scanf("%d", &escolha2);
+
+    // Comparação do primeiro atributo
+    switch(escolha1) {
         case 1:
-            printf("População:\n");
-            printf("%s: %lu\n", nome1, populacao1);
-            printf("%s: %lu\n", nome2, populacao2);
-
-            if (populacao1 > populacao2) {
-                printf("Vencedor: %s\n", nome1);
-            } else if (populacao2 > populacao1) {
-                printf("Vencedor: %s\n", nome2);
-            } else {
-                printf("Empate na população!\n");
-            }
+            vitoria1 += (populacao1 > populacao2) ? 1 : 0;
+            vitoria2 += (populacao2 > populacao1) ? 1 : 0;
             break;
-
         case 2:
-            printf("Área Territorial (km²):\n");
-            printf("%s: %.0f\n", nome1, area1);
-            printf("%s: %.0f\n", nome2, area2);
-
-            if (area1 > area2) {
-                printf("Vencedor: %s\n", nome1);
-            } else if (area2 > area1) {
-                printf("Vencedor: %s\n", nome2);
-            } else {
-                printf("Empate na área!\n");
-            }
+            vitoria1 += (area1 > area2) ? 1 : 0;
+            vitoria2 += (area2 > area1) ? 1 : 0;
             break;
-
         case 3:
-            printf("PIB (trilhões USD):\n");
-            printf("%s: %.2f\n", nome1, pib1);
-            printf("%s: %.2f\n", nome2, pib2);
-
-            if (pib1 > pib2) {
-                printf("Vencedor: %s\n", nome1);
-            } else if (pib2 > pib1) {
-                printf("Vencedor: %s\n", nome2);
-            } else {
-                printf("Empate no PIB!\n");
-            }
+            vitoria1 += (pib1 > pib2) ? 1 : 0;
+            vitoria2 += (pib2 > pib1) ? 1 : 0;
             break;
-
         case 4:
-            printf("Pontos Turísticos:\n");
-            printf("%s: %d\n", nome1, pontos1);
-            printf("%s: %d\n", nome2, pontos2);
-
-            if (pontos1 > pontos2) {
-                printf("Vencedor: %s\n", nome1);
-            } else if (pontos2 > pontos1) {
-                printf("Vencedor: %s\n", nome2);
-            } else {
-                printf("Empate nos pontos turísticos!\n");
-            }
+            vitoria1 += (pontos1 > pontos2) ? 1 : 0;
+            vitoria2 += (pontos2 > pontos1) ? 1 : 0;
             break;
-
         default:
-            printf("Opção inválida! Tente novamente.\n");
+            printf("Atributo 1 inválido!\n");
+            return 1;
+    }
+
+    // Comparação do segundo atributo
+    switch(escolha2) {
+        case 1:
+            vitoria1 += (populacao1 > populacao2) ? 1 : 0;
+            vitoria2 += (populacao2 > populacao1) ? 1 : 0;
+            break;
+        case 2:
+            vitoria1 += (area1 > area2) ? 1 : 0;
+            vitoria2 += (area2 > area1) ? 1 : 0;
+            break;
+        case 3:
+            vitoria1 += (pib1 > pib2) ? 1 : 0;
+            vitoria2 += (pib2 > pib1) ? 1 : 0;
+            break;
+        case 4:
+            vitoria1 += (pontos1 > pontos2) ? 1 : 0;
+            vitoria2 += (pontos2 > pontos1) ? 1 : 0;
+            break;
+        default:
+            printf("Atributo 2 inválido!\n");
+            return 1;
+    }
+
+    // Exibição do resultado final
+    printf("\n=== Resultado ===\n");
+    printf("%s venceu %d atributo(s).\n", nome1, vitoria1);
+    printf("%s venceu %d atributo(s).\n", nome2, vitoria2);
+
+    if (vitoria1 > vitoria2) {
+        printf("🏆 Vencedora: %s\n", nome1);
+    } else if (vitoria2 > vitoria1) {
+        printf("🏆 Vencedora: %s\n", nome2);
+    } else {
+        printf("⚖️ Empate geral! Cada país venceu 1 atributo.\n");
     }
 
     return 0;
